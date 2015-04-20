@@ -1,0 +1,103 @@
+package com.example.tests;
+
+import java.util.regex.Pattern;
+import java.util.concurrent.TimeUnit;
+import org.junit.*;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class VerifyOverviewJava {
+  private WebDriver driver;
+  private String baseUrl;
+  private boolean acceptNextAlert = true;
+  private StringBuffer verificationErrors = new StringBuffer();
+
+  @Before
+  public void setUp() throws Exception {
+    driver = new FirefoxDriver();
+    baseUrl = "http://no001mbedrfv2.gad.teliasonera.net:13371/#/home/889640782";
+    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+  }
+
+  @Test
+  public void testVerifyOverviewJava() throws Exception {
+    driver.get("http://no001mbedrfv2.gad.teliasonera.net:13371/#/home/889640782");
+    driver.findElement(By.linkText("Endre")).click();
+    driver.findElement(By.xpath("//div[@id='app-root']/div/header/div[2]/div/div/div[2]/div/ul/li/a/span/span[3]")).click();
+    driver.findElement(By.xpath("//div[@id='app-root']/div/header/div[2]/div/div/div[2]/div/ul/li/a/span/span[3]")).click();
+    try {
+      assertTrue(isElementPresent(By.cssSelector("header.table-header > div.row")));
+    } catch (Error e) {
+      verificationErrors.append(e.toString());
+    }
+    try {
+      assertTrue(isElementPresent(By.cssSelector("header.table-header > div.row")));
+    } catch (Error e) {
+      verificationErrors.append(e.toString());
+    }
+    try {
+      assertTrue(isElementPresent(By.cssSelector("h2")));
+    } catch (Error e) {
+      verificationErrors.append(e.toString());
+    }
+    assertEquals("Faktura", driver.findElement(By.cssSelector("th > span")).getText());
+    assertEquals("Beløp", driver.findElement(By.xpath("//div[@id='account']/section[3]/div/div/div/table/thead/tr/th[4]/span")).getText());
+    assertEquals("PDF", driver.findElement(By.xpath("//div[@id='account']/section[3]/div/div/div/table/thead/tr/th[5]")).getText());
+    assertEquals("Status", driver.findElement(By.xpath("//div[@id='account']/section[3]/div/div/div/table/thead/tr/th[3]/span")).getText());
+    assertEquals("Detaljer", driver.findElement(By.cssSelector("h2.as-h3 > span")).getText());
+    assertEquals("Fakturasted", driver.findElement(By.cssSelector("span.ll > span")).getText());
+    assertEquals("Tilleggsinformasjon", driver.findElement(By.xpath("//div[@id='account']/section[4]/div[2]/div/div/ul/li[2]/span/span")).getText());
+    assertEquals("Kundenummer", driver.findElement(By.xpath("//div[@id='account']/section[4]/div[2]/div/div/ul/li[3]/span/span")).getText());
+    try {
+      assertTrue(isElementPresent(By.cssSelector("section.subscriptions > div.tsr-forms > div.row.pageable > div.small-12.columns > header.table-header > div.row > div.medium-3.columns > h2")));
+    } catch (Error e) {
+      verificationErrors.append(e.toString());
+    }
+    assertEquals("Endre detaljer", driver.findElement(By.cssSelector("a.link-bold.right > span")).getText());
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    driver.quit();
+    String verificationErrorString = verificationErrors.toString();
+    if (!"".equals(verificationErrorString)) {
+      fail(verificationErrorString);
+    }
+  }
+
+  private boolean isElementPresent(By by) {
+    try {
+      driver.findElement(by);
+      return true;
+    } catch (NoSuchElementException e) {
+      return false;
+    }
+  }
+
+  private boolean isAlertPresent() {
+    try {
+      driver.switchTo().alert();
+      return true;
+    } catch (NoAlertPresentException e) {
+      return false;
+    }
+  }
+
+  private String closeAlertAndGetItsText() {
+    try {
+      Alert alert = driver.switchTo().alert();
+      String alertText = alert.getText();
+      if (acceptNextAlert) {
+        alert.accept();
+      } else {
+        alert.dismiss();
+      }
+      return alertText;
+    } finally {
+      acceptNextAlert = true;
+    }
+  }
+}
